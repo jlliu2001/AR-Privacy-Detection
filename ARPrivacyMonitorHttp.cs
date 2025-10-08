@@ -14,33 +14,33 @@ using UnityEngine.Android;
 
 public enum WarningUIMode
 {
-    CenterPanel,    // 原始方式：屏幕中央红色panel
-    TopText,        // 方式1：屏幕上方警示文字
-    BoxHighlight    // 方式2：矩形区域高亮
+    CenterPanel,    
+    TopText,        
+    BoxHighlight    
 }
 
 public class ARPrivacyMonitorHttp : MonoBehaviour
 {
-    public float captureInterval = 5f; // 截图间隔（秒）
-    public string serverUrl = "http://your_IP/check_privacy"; // PC端服务器地址
-    public string pcServerIp = "your IP"; // PC端IP，Inspector可配置
+    public float captureInterval = 5f; 
+    public string serverUrl = "http://your_IP/check_privacy"; 
+    public string pcServerIp = "your IP"; 
     public string screenshotsFolder = "CapturedImages";
     
     [Header("Image Compression Settings")]
-    public int targetWidth = 0; // 目标宽度，0表示不缩放
-    public int targetHeight = 0; // 目标高度，0表示不缩放
+    public int targetWidth = 0; 
+    public int targetHeight = 0; 
     [Range(10, 100)]
-    public int jpegQuality = 75; // JPEG质量 (10-100)
-    public bool useJPEG = true; // 使用JPEG格式而非PNG
+    public int jpegQuality = 75; 
+    public bool useJPEG = true; 
     
     [Header("Warning UI Settings")]
-    public WarningUIMode warningMode = WarningUIMode.CenterPanel; // 警告UI模式
-    public GameObject warningPanel; // 警告弹窗Panel（中央模式）
-    public TMP_Text warningText; // 警告文本（中央模式）
-    public TMP_Text topWarningText; // 顶部警告文本（顶部模式）
-    public Transform boxHighlightParent; // 矩形高亮父物体（矩形模式）
-    public GameObject boxHighlightPrefab; // 矩形高亮预制体
-    public TMP_Text debugText; // 用于移动端调试信息显示
+    public WarningUIMode warningMode = WarningUIMode.CenterPanel; 
+    public GameObject warningPanel; 
+    public TMP_Text warningText; 
+    public TMP_Text topWarningText; 
+    public Transform boxHighlightParent; 
+    public GameObject boxHighlightPrefab; 
+    public TMP_Text debugText; 
 
     private float timer = 0f;
     private string lastScreenshotPath = "";
@@ -51,9 +51,8 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
 
     void Start()
     {
-        // 自动设置 serverUrl（仅在移动端）
 #if UNITY_ANDROID || UNITY_IOS
-        // 这里假设 pcServerIp 已在 Inspector 设置为 PC 的局域网IP
+        
         serverUrl = $"http://{pcServerIp}:5000/check_privacy";
 #endif
         if (warningPanel != null)
@@ -91,23 +90,23 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
     IEnumerator CaptureAndSend()
     {
         
-        // 确定文件扩展名
+        
         string fileExtension = useJPEG ? ".jpg" : ".png";
         string screenshotPath = Path.Combine(Application.persistentDataPath, screenshotsFolder, "frame" + fileExtension);
         ShowDebug($"before Texture2D");
-        // 创建原始截图纹理
+        
         Texture2D originalTex = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         originalTex.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         originalTex.Apply();
         
-        // 计算压缩后的尺寸
+        
         int finalWidth = Screen.width;
         int finalHeight = Screen.height;
         // ShowDebug("Screen.width:" + Screen.width + " Screen.height:" + Screen.height);
         
         if (targetWidth > 0 && targetHeight > 0)
         {
-            // 保持宽高比缩放
+            
             float aspectRatio = (float)Screen.width / Screen.height;
             if (Screen.width > targetWidth || Screen.height > targetHeight)
             {
@@ -124,7 +123,7 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
             }
         }
         
-        // 如果需要缩放，创建缩放后的纹理
+        
         Texture2D finalTex = originalTex;
         if (finalWidth != Screen.width || finalHeight != Screen.height)
         {
@@ -132,7 +131,7 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
             Destroy(originalTex);
         }
         
-        // 根据格式编码
+        
         byte[] bytes;
         if (useJPEG)
         {
@@ -165,7 +164,7 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
         yield return StartCoroutine(UploadImage(screenshotPath));
     }
 
-    // 纹理缩放方法
+    
     Texture2D ResizeTexture(Texture2D originalTexture, int targetWidth, int targetHeight)
     {
         RenderTexture renderTexture = RenderTexture.GetTemporary(targetWidth, targetHeight);
@@ -185,7 +184,7 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
 
     IEnumerator UploadImage(string imagePath)
     {
-        // 实际手机屏幕是数字从小到大对应图像从下向上，因此回来的Box可能需要做一个倒置处理
+        
         byte[] imageData = File.ReadAllBytes(imagePath);
         WWWForm form = new WWWForm();
         string mimeType = imagePath.EndsWith(".jpg") || imagePath.EndsWith(".jpeg") ? "image/jpeg" : "image/png";
@@ -291,7 +290,7 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
     
     void ShowBoxHighlightWarning(float[][] boxList)
     {
-        // 先停止之前的闪烁协程
+        
         if (blinkingCoroutine != null)
         {
             StopCoroutine(blinkingCoroutine);
@@ -311,7 +310,7 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
                 }
             }
             
-            // 重新启动闪烁协程
+            
             blinkingCoroutine = StartCoroutine(BlinkBoxHighlights());
         }
         Debug.LogWarning("[BoxHighlight]The screen contains a risk of privacy leakage!");
@@ -450,7 +449,7 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
         
         while (elapsed < duration && activeBoxHighlights.Count > 0)
         {
-            // 创建副本以避免在迭代过程中修改列表
+            
             for (int i = activeBoxHighlights.Count - 1; i >= 0; i--)
             {
                 if (i < activeBoxHighlights.Count && activeBoxHighlights[i] != null)
@@ -472,6 +471,6 @@ public class ARPrivacyMonitorHttp : MonoBehaviour
         yield return new WaitForSeconds(delay);
         if (warningPanel != null)
             warningPanel.SetActive(false);
-        // UpdateStatusText("监控中...");
+        
     }
 } 
