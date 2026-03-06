@@ -4,17 +4,6 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
 
 <img src="/docs/system_PrivAR.png" width="600">
 
-## 📱 Quick Demo (Pre-built APK)
-
-For a quick demonstration of **PrivAR** without setting up the full development environment, we provide a pre-built Android APK file. You can install it directly on your mobile device to test the functionality.
-
-[**⬇️ Download PrivAR.apk**](https://drive.google.com/file/d/1CfvoSniGNr0KZw8B96h7xxHZ8IkoQW6k/view?usp=sharing)
-
-**Installation Steps:**
-1.  Download the `.apk` file to your Android device.
-2.  Install the application (you may need to enable **"Install from Unknown Sources"** in your device settings).
-3.  Launch the app and grant the necessary **Camera permissions** to enable AR sensing capabilities.
-
 ## 🛠️ Prerequisites
 
 ### Unity Environment
@@ -26,23 +15,13 @@ For a quick demonstration of **PrivAR** without setting up the full development 
 * **Dependencies:**
     The core functionality (Edge Server processing and Cloud VLM inference) requires the following libraries.
     ```
-    numpy
-    opencv-python
-    scipy
-    openai
-    requests
-    flask
-    pytesseract
-    subprocess
+    numpy, opencv-python, scipy, openai, requests, flask, pytesseract, subprocess
     ```
 ## 🚀 Installation & Usage
 ### 1. Python Server Setup
-Ensure your Python environment is ready and dependencies are installed.
 
-* Clone this repository.
-* Navigate to the python script directory.
+* Navigate to the Python script directory.
 * Set up your OpenAI API Key in the configuration file or environment variable (for GPT-4o-mini inference).
-
 
 ### 2. Unity Project Setup
 To integrate PrivAR into your Unity AR project, follow these steps:
