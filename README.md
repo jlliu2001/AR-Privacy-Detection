@@ -35,8 +35,7 @@ To integrate PrivAR into your Unity AR project, follow these steps:
 #### Import Scripts:
 
 * Navigate to your Unity project's assets folder: your_repo/Assets/MobileARTemplateAssets/
-* Create a new folder named Scripts.
-* Copy ARPrivacyMonitorHttp.cs and privacy_http_server.py files from this repository into: your_repo/Assets/MobileARTemplateAssets/Scripts/
+* Copy the folder named Scripts into your_repo/Assets/MobileARTemplateAssets/.
 
 #### Import Prefabs:
 
