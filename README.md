@@ -93,5 +93,5 @@ This repository includes the dataset collected for the PrivAR evaluation (Sectio
 
 
 ## 🔗 Citation
-If you find this work useful in your research, please consider citing our paper:
+If you find this work useful in your research, please cite our paper:
 
