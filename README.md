@@ -4,27 +4,36 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
 
 <img src="/docs/system_PrivAR.png" width="600">
 
-## 🛠️ Prerequisites
+* [Installation & Usage](#1)
+* [Dataset](#2)
 
-### Unity Environment
-* **Unity Version:** `2022.3.6f1`.
-* **Target Platform:** Android / iOS (AR Mobile).
-* **Required Unity Packages:** Open `PrivARMobile` folder in Unity via Unity Hub. Install all of the following via **Window → Package Manager** in Unity.
+## 🚀 Installation & Usage  <span id="1">
+
+### Prerequisites
+
+1. **Unity Environment**
+   
+* *Unity Version:* `2022.3.6f1`.
+* *Target Platform:* Android / iOS (AR Mobile).
+* *Required Unity Packages:* Open `PrivARMobile` folder in Unity via Unity Hub. Install all of the following via **Window → Package Manager** in Unity.
     ```
     com.unity.xr.arfoundation, com.unity.xr.interaction.toolkit, com.unity.xr.management, com.unity.inputsystem
     ```
     Platform-specific package: `com.unity.xr.arcore` (Android) or `com.unity.xr.arkit` (iOS).
 
-### Python Environment
-* **Python Version:** `3.7+`.
-* **Dependencies:**
+2. **Python Environment**
+   
+* *Python Version:* `3.7+`.
+* *Dependencies:*
     The following libraries are required.
     ```
     numpy, opencv-python, scipy, openai, requests, flask, pytesseract, subprocess
     ```
-## 🚀 Installation & Usage
+3. **Network Setup**
+   
+The mobile device and the edge server (e.g., a computer) must be connected to the *same Wi-Fi network*.
 
-The mobile device and the edge server (e.g., a computer) must be connected to the *same Wi-Fi network*. * Navigate to the Python script directory.
+4. **OpenAI API Key Setup**
 Set up your OpenAI API Key in the configuration file or environment variable (for VLM inference).
 
 ### Step 1: Configure Parameters in Unity
@@ -57,7 +66,7 @@ Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObje
 1. Launch the AR app on the mobile device.
 2. The app will capture an image at each set interval, upload it to the edge server, and return warning feedback.
 
-## 📂 Dataset
+## 📂 Dataset <span id="2">
 This repository includes the dataset collected for the PrivAR evaluation (Section 3.1 of the paper), covering:
 
 * **Scenes:** The data covers 4 diverse indoor environments:
