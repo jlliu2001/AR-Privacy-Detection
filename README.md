@@ -7,11 +7,16 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
 ## 🛠️ Prerequisites
 
 ### Unity Environment
-* **Unity Version:** `2022.3.6f1`
-* **Target Platform:** Android / iOS (AR Mobile)
+* **Unity Version:** `2022.3.6f1`.
+* **Target Platform:** Android / iOS (AR Mobile).
+* **Required Unity Packages:** Open `PrivARMobile` folder in Unity via Unity Hub. Install all of the following via **Window → Package Manager** in Unity.
+    ```
+    com.unity.xr.arfoundation, com.unity.xr.interaction.toolkit, com.unity.xr.management, com.unity.inputsystem
+    ```
+    Platform-specific package: `com.unity.xr.arcore` (Android) or `com.unity.xr.arkit` (iOS).
 
 ### Python Environment
-* **Python Version:** `3.7+`
+* **Python Version:** `3.7+`.
 * **Dependencies:**
     The following libraries are required.
     ```
@@ -19,32 +24,18 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
     ```
 ## 🚀 Installation & Usage
 
-
-## Required Packages
-
-Open `PrivARMobile` folder in Unity via Unity Hub.
-
-Install all of the following via **Window → Package Manager** in Unity.
-
-- `com.unity.xr.arfoundation`
-- `com.unity.xr.interaction.toolkit`
-- `com.unity.xr.management`
-- `com.unity.inputsystem`
-- Platform-dependent package: `com.unity.xr.arcore` (Android) or `com.unity.xr.arkit` (iOS)
-
-### 1. Python Server Setup
-
-* Navigate to the Python script directory.
-* Set up your OpenAI API Key in the configuration file or environment variable (for GPT-4o-mini inference).
-
-### 2. Unity Project Configuration
-To integrate PrivAR into your Unity AR project, follow these steps:
-
-### Prerequisite
-The mobile device and the edge server (e.g., a computer) must be connected to the same Wi-Fi network.
+### Prerequisites
+The mobile device and the edge server (e.g., a computer) must be connected to the *same Wi-Fi network*. * Navigate to the Python script directory.
+Set up your OpenAI API Key in the configuration file or environment variable (for VLM inference).
 
 ### Step 1: Configure Parameters in Unity
 Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObject and set:
+
+<p>
+  <img src="docs/config1.png" width="28%"/>
+  <img src="docs/config2.png" width="28%"/>
+  <img src="docs/config3.png" width="28%"/>
+</p>
 
 1. **IP Address** — set `Pc Server Ip` to the IP address of your Wi-Fi network.
 2. **Trigger interval** — configure between 20s and 30s.
@@ -59,11 +50,11 @@ Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObje
 4. Click Build And Run.
 
 ### Step 3: Start the Edge Server
-1. Open `ARtest/Assets/MobileARTemplateAssets/Scripts/privacy_http_server.py`.
+1. Open `PrivARMobile/Assets/MobileARTemplateAssets/Scripts/privacy_http_server.py`.
 2. Set the variable `EAST_model_path` to point to `model/frozen_east_text_detection.pb`.
 3. Run the `privacy_http_server.py` script.
 
-### Step 4: Run the Experiment
+### Step 4: Run the App
 1. Launch the AR app on the mobile device.
 2. The app will capture an image at each set interval, upload it to the edge server, and return warning feedback.
 
