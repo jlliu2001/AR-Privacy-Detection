@@ -8,7 +8,7 @@ public class ARPrivacyMonitor : MonoBehaviour
 {
     public float captureInterval = 5f; // frequency
     public string pythonExePath = "python"; 
-    public string scriptPath = "Assets/MobileARTemplateAssets/Scripts/gpt4o_image_check.py"; 
+    public string scriptPath = ".py"; 
     public string screenshotsFolder = "CapturedImages";
     public GameObject warningPanel; 
     public Text warningText; 
@@ -107,4 +107,5 @@ public class ARPrivacyMonitor : MonoBehaviour
     {
         public bool privacy;
     }
+
 } 
