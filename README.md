@@ -24,7 +24,6 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
     ```
 ## 🚀 Installation & Usage
 
-### Prerequisites
 The mobile device and the edge server (e.g., a computer) must be connected to the *same Wi-Fi network*. * Navigate to the Python script directory.
 Set up your OpenAI API Key in the configuration file or environment variable (for VLM inference).
 
