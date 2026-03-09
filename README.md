@@ -68,7 +68,7 @@ Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObje
 2. The app will capture an image at each set interval, upload it to the edge server, and return warning feedback.
 
 ## 📂 Dataset <span id="2">
-This repository includes the dataset collected for the PrivAR evaluation (Section 3.1 of the paper), covering:
+The dataset can be downloaded [**here**](Datasets/).
 
 * **Scenes:** The data covers 4 diverse indoor environments:
     * Office
