@@ -19,7 +19,7 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
     ```
     com.unity.xr.arfoundation, com.unity.xr.interaction.toolkit, com.unity.xr.management, com.unity.inputsystem
     ```
-    Platform-specific package: `com.unity.xr.arcore` (Android) or `com.unity.xr.arkit` (iOS).
+    *Platform-specific package*: `com.unity.xr.arcore` (Android) or `com.unity.xr.arkit` (iOS).
 
 2. **Python Environment**
    
