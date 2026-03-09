@@ -13,39 +13,59 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
 ### Python Environment
 * **Python Version:** `3.7+`
 * **Dependencies:**
-    The core functionality (edge server processing and cloud VLM inference) requires the following libraries.
+    The following libraries are required.
     ```
     numpy, opencv-python, scipy, openai, requests, flask, pytesseract, subprocess
     ```
 ## 🚀 Installation & Usage
+
+
+## Required Packages
+
+Open `PrivARMobile` folder in Unity via Unity Hub.
+
+Install all of the following via **Window → Package Manager** in Unity.
+
+- `com.unity.xr.arfoundation`
+- `com.unity.xr.interaction.toolkit`
+- `com.unity.xr.management`
+- `com.unity.inputsystem`
+- Platform-dependent package: `com.unity.xr.arcore` (Android) or `com.unity.xr.arkit` (iOS)
+
 ### 1. Python Server Setup
 
 * Navigate to the Python script directory.
 * Set up your OpenAI API Key in the configuration file or environment variable (for GPT-4o-mini inference).
 
-### 2. Unity Project Setup
+### 2. Unity Project Configuration
 To integrate PrivAR into your Unity AR project, follow these steps:
 
-#### Create New Project:
+### Prerequisite
+The mobile device and the edge server (e.g., a computer) must be connected to the same Wi-Fi network.
 
-* Open Unity Hub.
-* Create a new project using the AR Mobile template.
+### Step 1: Configure Parameters in Unity
+Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObject and set:
 
+1. **IP Address** — set `Pc Server Ip` to the IP address of your Wi-Fi network.
+2. **Trigger interval** — configure between 20s and 30s.
+3. **Warning mode** — choose one of three modes: `Center Panel` / `Top Text` / `Box Highlight`.
+4. **Debug option** — check `StatusText` to show step outputs on the device during testing; uncheck for formal experiments.
+5. **Raycast Target** — uncheck the `Raycast Target` box on the `HightLightPanel` component to allow AR privacy detection and object placement to run simultaneously.
 
-#### Import Scripts:
+### Step 2: Build the AR App
+1. Connect your phone via USB cable.
+2. Enable Developer Mode and USB Debugging on the phone.
+3. In Unity, go to **File → Build Settings → Run Device**, select your connected device (minimum Android version: 29).
+4. Click Build And Run.
 
-* Navigate to your Unity project's assets folder: your_repo/Assets/MobileARTemplateAssets/
-* Copy the folder named Scripts into your_repo/Assets/MobileARTemplateAssets/.
+### Step 3: Start the Edge Server
+1. Open `ARtest/Assets/MobileARTemplateAssets/Scripts/privacy_http_server.py`.
+2. Set the variable `EAST_model_path` to point to `model/frozen_east_text_detection.pb`.
+3. Run the `privacy_http_server.py` script.
 
-#### Import Prefabs:
-
-* Navigate to your_repo/Assets/MobileARTemplateAssets/
-* Locate the existing Prefabs folder (or create it if it doesn't exist).
-* Copy the contents of the Prefabs folder from this repository into: your_repo/Assets/MobileARTemplateAssets/Prefabs/
-
-#### Final Configuration:
-
-Follow the detailed step-by-step configuration guide in ./docs/PrivAR_readme.pdf  to wire up the UI components and connect the AR Camera to the Python backend.
+### Step 4: Run the Experiment
+1. Launch the AR app on the mobile device.
+2. The app will capture an image at each set interval, upload it to the edge server, and return warning feedback.
 
 ## 📂 Dataset
 This repository includes the dataset collected for the PrivAR evaluation (Section 3.1 of the paper), covering:
