@@ -31,10 +31,11 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
     ```
 3. **Network Setup**
    
-The mobile device and the edge server (e.g., a computer) must be connected to the *same Wi-Fi network*.
+   The mobile device and the edge server (e.g., a computer) must be connected to the *same Wi-Fi network*.
 
 4. **OpenAI API Key Setup**
-Set up your OpenAI API Key in the configuration file or environment variable (for VLM inference).
+   
+   Set up your OpenAI API Key in the configuration file or environment variable (for VLM inference).
 
 ### Step 1: Configure Parameters in Unity
 Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObject and set:
