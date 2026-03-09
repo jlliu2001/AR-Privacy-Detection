@@ -13,7 +13,7 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
 ### Python Environment
 * **Python Version:** `3.7+`
 * **Dependencies:**
-    The core functionality (Edge Server processing and Cloud VLM inference) requires the following libraries.
+    The core functionality (edge server processing and cloud VLM inference) requires the following libraries.
     ```
     numpy, opencv-python, scipy, openai, requests, flask, pytesseract, subprocess
     ```
