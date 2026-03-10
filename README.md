@@ -88,7 +88,6 @@ The dataset can be downloaded [**here**](Datasets/).
     * Handwritten Password Notes
     * Text displayed on Computer Screens
     * Text displayed on Phone Screens
-* **Multi-Instance Complexity:** **40.63%** of the positive samples contain multiple co-occurring sensitive items (e.g., a handwritten password note appearing alongside a transcript), requiring the model to handle complex scenes.
 * **Negative Samples (Hard Negatives):** To evaluate robustness, the dataset includes **94 visually similar but non-sensitive negative samples**, such as published academic papers and coupons, which share visual characteristics with sensitive documents but should not trigger privacy alerts.
 
 
