@@ -55,7 +55,7 @@ Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObje
 ### Step 3: Start the Edge Server
 1. Open `PrivARMobile/Assets/MobileARTemplateAssets/Scripts/privacy_http_server.py`.
 2. Set the variable `EAST_model_path` to point to `model/frozen_east_text_detection.pb`.
-3. Run the `privacy_http_server.py` script.
+3. Navigate to `<project_root>`, then run `python scripts/privacy_http_server.py`.
 
 ### Step 4: Run the App
 1. Launch the AR app on the mobile device.
