@@ -15,7 +15,7 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
    
 * *Unity Version:* `2022.3.6f1`.
 * *Target Platform:* Android / iOS (AR Mobile).
-* *Required Unity Packages:* Open `PrivARMobile` folder in Unity via Unity Hub. Install all of the following via **Window → Package Manager** in Unity: `com.unity.xr.arfoundation`, `com.unity.xr.interaction.toolkit`, `com.unity.xr.management`, `com.unity.inputsystem`.
+* *Required Unity Packages:* Open `scripts/PrivARMobile` folder in Unity via Unity Hub. Install all of the following via **Window → Package Manager** in Unity: `com.unity.xr.arfoundation`, `com.unity.xr.interaction.toolkit`, `com.unity.xr.management`, `com.unity.inputsystem`.
     *Platform-specific package*: `com.unity.xr.arcore` (Android) or `com.unity.xr.arkit` (iOS).
 
 2. **Python Environment**
