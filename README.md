@@ -31,7 +31,8 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
    
    Set up your OpenAI API Key in the configuration file or environment variable (for VLM inference).
 
-### Step 1: Configure Parameters in Unity
+### PrivAR Dataset Collection App
+#### Step 1: Configure Parameters in Unity
 Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObject and set:
 
 <p>
@@ -46,20 +47,23 @@ Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObje
 4. **Debug option** — check `StatusText` to show step outputs on the device during testing; uncheck for formal experiments.
 5. **Raycast Target** — uncheck the `Raycast Target` box on the `HightLightPanel` component to allow AR privacy detection and object placement to run simultaneously.
 
-### Step 2: Build the AR App
+#### Step 2: Build the AR App
 1. Connect your phone via USB cable.
 2. Enable Developer Mode and USB Debugging on the phone.
 3. In Unity, go to **File → Build Settings → Run Device**, select your connected device (minimum Android version: 29).
 4. Click Build And Run.
 
-### Step 3: Start the Edge Server
+#### Step 3: Start the Edge Server
 1. Open `PrivARMobile/Assets/MobileARTemplateAssets/Scripts/privacy_http_server.py`.
 2. Set the variable `EAST_model_path` to point to `model/frozen_east_text_detection.pb`.
 3. Navigate to `<project_root>`, then run `python scripts/privacy_http_server.py`.
 
-### Step 4: Run the App
+#### Step 4: Run the App
 1. Launch the AR app on the mobile device.
 2. The app will capture an image at each set interval, upload it to the edge server, and return warning feedback.
+
+### PrivAR Evaluation
+Navigate to `<project_root>`, then run python `scripts/PrivAR_pipeline.py` and `scripts/character_leakage_rate.py`.
 
 ## 📂 Dataset <span id="2">
 The dataset can be downloaded [**here**](Datasets/).
