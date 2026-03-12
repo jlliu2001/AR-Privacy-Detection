@@ -29,7 +29,7 @@ This repository accompanies the paper **"See no evil: Semantic context-aware pri
 
 4. **OpenAI API Key Setup**
    
-   Set up your OpenAI API Key in the configuration file or environment variable (for VLM inference).
+   Set up your OpenAI API Key in the environment variable (for VLM inference).
 
 ### PrivAR Dataset Collection App
 #### Step 1: Configure Parameters in Unity
