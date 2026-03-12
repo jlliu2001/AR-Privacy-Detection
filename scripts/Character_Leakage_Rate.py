@@ -26,9 +26,9 @@ class GPTAzure():
     def set_API_key(self):
         
         self.client = AzureOpenAI(
-            api_key="your api key",
-            api_version="your api version",
-            azure_endpoint = "your api website"
+            api_key=os.environ.get("AZURE_API_KEY"),
+            api_version=os.environ.get("AZURE_API_VERSION"),
+            azure_endpoint=os.environ.get("AZURE_ENDPOINT")
         )
     
     def extract_privacy_details(self, image_path, try_num=0):
@@ -148,7 +148,7 @@ def decode_predictions(scores, geometry, conf_threshold=0.5):
 
 def east_text_detect_boxes(img_path, num_samples=0, crop_size=320, conf_threshold=0.5, nms_threshold=0.4, sampling_mode='grid'):
     # Use the same EAST model path as in pipeline.py
-    east_model_path = "E:/Study/model/frozen_east_text_detection.pb"
+    east_model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frozen_east_text_detection.pb')
     net = cv2.dnn.readNet(east_model_path)
 
     image = cv2.imread(img_path)
@@ -599,8 +599,13 @@ if __name__ == '__main__':
     comp_path='data.jpg'
     
     # Choose which analysis to run:
-    analysis_mode = 'single'  # 'privacy_consistency' or 'character_leakage'
-    compare_mode='ideal'
+    analysis_mode = 'single'  # 'privacy_consistency' or 'CER'
+    '''
+    privacy_consistency: Runs VLM on each original/processed image pair to compare extracted privacy details and measure semantic leakage across the dataset.
+    CER: Runs EAST text detection and Tesseract OCR on each original/processed image pair to compute Character Error Rate, measuring how much raw text survives obfuscation.
+    Single: Sends a single pair of images to GPT-4o to quickly verify credentials and test the privacy comparison logic on two specific images.
+    '''
+    compare_mode='blur'
     if analysis_mode == 'privacy_consistency':
         # Run privacy consistency analysis with GPT-4o VLM
         output_excel = os.path.join(data_dir, 'Privacy_Consistency_ideal.xlsx')

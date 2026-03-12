@@ -1,11 +1,7 @@
 import sys
 import requests
-import json
-import os
 import cv2
 import numpy as np
-# import pytesseract as ts
-import re
 import pandas as pd
 import glob
 from datetime import datetime
@@ -24,23 +20,22 @@ import time
 import base64
 import json
 from concurrent.futures import ThreadPoolExecutor
-import sys
 
 
 
 def check_privacy(image_path, vlm_mode="gpt-4o-mini"):
     print("check_privacy")
     if vlm_mode=="gpt-4o-mini":
-        gpt = GPTAzure("gpt-4o-mini")
+        vlm_model = GPTAzure("gpt-4o-mini")
     elif vlm_mode=="gpt-4o":
-        gpt = GPTAzure("gpt-4o")
+        vlm_model = GPTAzure("gpt-4o")
     elif vlm_mode=="llava4":
-        gpt = GPTLLaVA()
-    print('gpt loaded!')
+        vlm_model = LLaVA()
+    print('VLM model loaded!')
 
     try:
 
-        result=gpt.query(image_path=image_path)
+        result=vlm_model.query(image_path=image_path)
 
         result_json = json.loads(result)
  
@@ -62,9 +57,9 @@ class GPTAzure():
     def set_API_key(self):
 
         self.client = AzureOpenAI(
-            api_key="your api key",
-            api_version="your api version",
-            azure_endpoint = "your api website"
+            api_key=os.environ.get("AZURE_API_KEY"),
+            api_version=os.environ.get("AZURE_API_VERSION"),
+            azure_endpoint=os.environ.get("AZURE_ENDPOINT")
         )
     
 
@@ -326,9 +321,9 @@ class GPTAzure():
         return results
 
 
-class GPTLLaVA():
+class LLaVA():
     def __init__(self, name="meta-llama/llama-4-maverick:free"):
-        print('GPTLLaVA is in use.\n')
+        print('LLaVA is in use.\n')
         self.set_API_key()
         self.deployment_name = name
         self.temperature = 0.0
@@ -339,7 +334,7 @@ class GPTLLaVA():
         # Common setups: local vLLM/LMStudio/xtuner servers expose /v1 OpenAI-compatible API
 
         # Use OpenAI client with custom base_url
-        self.client = OpenAI(api_key="your api key",
+        self.client = OpenAI(api_key=os.environ.get("OPENROUTER_API_KEY"),
          base_url="https://openrouter.ai/api/v1")
 
 
@@ -477,7 +472,7 @@ def decode_predictions(scores, geometry, confThreshold=0.5):
 def EAST_text_detect_box(img_path, num_samples=7, crop_size=320, conf_threshold=0.5, nms_threshold=0.4, seed=None, sampling_mode='random', tmp_dir=None):
     # === Load the pretrained EAST model ===
     
-    net = cv2.dnn.readNet("frozen_east_text_detection.pb")
+    net = net = cv2.dnn.readNet(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frozen_east_text_detection.pb'))
     
     # === Load image ===
     image = cv2.imread(img_path)
@@ -1172,14 +1167,7 @@ if __name__ == '__main__':
     image_path = 'test.jpg'
 
 
-    dataset_folder = 'Single dataset folder path'
-    tmp_dir=os.path.join(dataset_folder,'temp')
-
-    output_excel_path = os.path.join(dataset_folder,f'result_{pipeline_mode}.xlsx')
-
-    os.makedirs(tmp_dir,exist_ok=True)
-
-
+    root_dir = 'Dataset'
     # ==========================================================================
     
     if run_mode == 'single':
@@ -1258,12 +1246,12 @@ if __name__ == '__main__':
             print(f"Processed image saved: {processed_path}")
             
             # Step 4: Get image description using VLM
-            gpt = GPTAzure("gpt-4o-mini")
-            description = gpt.describe_image(processed_path)
+            vlm_model = GPTAzure("gpt-4o-mini")
+            description = vlm_model.describe_image(processed_path)
             print(f"Image description: {description}")
             
             # Step 5: Analyze description for privacy using LLM
-            json_result = gpt.analyze_text_for_privacy(description)
+            json_result = vlm_model.analyze_text_for_privacy(description)
             print('Final result:', json_result)
             
             end_time=time.time()
@@ -1275,35 +1263,47 @@ if __name__ == '__main__':
             
     elif run_mode == 'batch':
         print(f"=== BATCH PROCESSING MODE: {pipeline_mode.upper()} ===")
-        print(f"Dataset folder: {dataset_folder}")
-        print(f"Output Excel: {output_excel_path}")
-        
-        try:
-            start_time = time.time()
-            
-            # Run batch processing
-            results_df, summary_stats = batch_process_images(
-                dataset_folder=dataset_folder,
-                mode=pipeline_mode,
-                output_excel=output_excel_path,
-                tmp_dir=tmp_dir
-            )
-            
-            end_time = time.time()
-            
-            print(f"\n=== BATCH PROCESSING COMPLETED ===")
-            print(f"Total processing time: {end_time - start_time:.2f} seconds")
-            print(f"Processed {len(results_df)} images")
-            print(f"Results saved to: {output_excel_path}")
-            
-        except Exception as e:
-            print(f"Error in batch processing: {e}")
-            import traceback
-            traceback.print_exc()
+
+        for subset in os.listdir(root_dir):
+            dataset_folder = os.path.join(root_dir, subset)
+            if not os.path.isdir(dataset_folder):
+                continue
+
+            tmp_dir = os.path.join(dataset_folder, 'temp')
+            output_excel_path = os.path.join(dataset_folder, f'{subset}_{pipeline_mode}.xlsx')
+            os.makedirs(tmp_dir, exist_ok=True)
+
+
+            print(f"Dataset folder: {dataset_folder}")
+            print(f"Output Excel: {output_excel_path}")
+
+
+            try:
+                start_time = time.time()
+
+                # Run batch processing
+                results_df, summary_stats = batch_process_images(
+                    dataset_folder=dataset_folder,
+                    mode=pipeline_mode,
+                    output_excel=output_excel_path,
+                    tmp_dir=tmp_dir
+                )
+
+                end_time = time.time()
+
+                print(f"\n=== BATCH PROCESSING COMPLETED ===")
+                print(f"Total processing time: {end_time - start_time:.2f} seconds")
+                print(f"Processed {len(results_df)} images")
+                print(f"Results saved to: {output_excel_path}")
+
+            except Exception as e:
+                print(f"Error in batch processing: {e}")
+                import traceback
+                traceback.print_exc()
     
     elif run_mode == 'merge':
         merge_dataset_results(method_name=pipeline_mode, 
-                              data_dir='All dataset dir')
+                              data_dir=root_dir)
     else:
         print(f"Invalid run_mode: {run_mode}. Use 'single' or 'batch'.")
 

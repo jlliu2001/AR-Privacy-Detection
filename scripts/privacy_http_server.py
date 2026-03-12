@@ -28,7 +28,7 @@ def check_privacy():
     print("check_privacy")
     gpt = GPTAzure("gpt-4o-mini")
     print('gpt loaded!')
-    EAST_model_path="your EAST model path"
+    EAST_model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frozen_east_text_detection.pb')
     
     if 'image' not in request.files:
         return jsonify({'privacy': False, 'error': 'No image uploaded'}), 400
@@ -92,7 +92,9 @@ def decode_predictions(scores, geometry, confThreshold=0.5):
     return rects, confidences
 
 
-def EAST_text_detect_box(img_path, num_samples=7, crop_size=320, conf_threshold=0.5, nms_threshold=0.4, seed=None, sampling_mode='random', tmp_dir=None, model_path="E:/Study/model/frozen_east_text_detection.pb"):
+def EAST_text_detect_box(img_path, num_samples=7, crop_size=320, conf_threshold=0.5, nms_threshold=0.4, seed=None, sampling_mode='random', tmp_dir=None, model_path=None):
+    if model_path is None:
+        model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frozen_east_text_detection.pb')
     # === Load the pretrained EAST model ===
     net = cv2.dnn.readNet(model_path)
 
@@ -401,9 +403,9 @@ class GPTAzure():
     def set_API_key(self):
 
         self.client = AzureOpenAI(
-            api_key="your api key",
-            api_version="your api version",
-            azure_endpoint = "your api website"
+            api_key=os.environ.get("AZURE_API_KEY"),
+            api_version=os.environ.get("AZURE_API_VERSION"),
+            azure_endpoint=os.environ.get("AZURE_ENDPOINT")
         )
     
 
