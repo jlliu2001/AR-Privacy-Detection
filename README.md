@@ -90,5 +90,14 @@ The dataset can be downloaded [**here**](Datasets/).
 
 
 ## 🔗 Citation
-If you find this work useful in your research, please cite our paper:
+The author of this repository is Jialu Liu. For questions, please contact: liujialu2001@gmail.com.
 
+If you find this work useful in your research, please cite our paper:
+```bibtex
+@inproceedings{PrivAR,
+  title={See No Evil: Semantic Context-Aware Privacy Risk Detection for AR},
+  author={Liu, Jialu and Li, Yao and Li, Zhuoheng and Ying, Chen},
+  booktitle={Proceedings of IEEE ICASSP},
+  year={2026}
+}
+```
