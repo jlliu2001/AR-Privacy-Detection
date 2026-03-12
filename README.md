@@ -63,7 +63,7 @@ Open the `ARPrivacyMonitorHttp.cs` script on the **XR Origin (AR Rig)** GameObje
 2. The app will capture an image at each set interval, upload it to the edge server, and return warning feedback.
 
 ### PrivAR Evaluation
-Navigate to `<project_root>`, then run python `scripts/PrivAR_pipeline.py` and `scripts/character_leakage_rate.py`.
+Navigate to `<project_root>`, then run python `scripts/PrivAR_pipeline.py` and `scripts/character_leakage_rate.py`. `PMPrivAR_pipeline.py` runs the full PrivAR pipeline on a dataset and outputs per-subset Excel files with accuracy metrics. `character_leakage_rate.py` measures how much private text survives obfuscation using OCR or GPT-4o, outputting leakage scores.
 
 ## 📂 Dataset <span id="2">
 The dataset can be downloaded [**here**](Datasets/).
