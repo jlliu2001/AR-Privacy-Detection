@@ -70,9 +70,9 @@ The dataset can be downloaded [**here**](Datasets/).
 
 * Scenes: The data covers 4 diverse indoor environments: office, living room, bedroom, and café
 
-* Virtual objects used in AR interactions: coffee cup, whiteboard, indoor plant, guitar, vase, and chair
+* Virtual objects used in AR interactions: 01 coffee cup, 02 whiteboard, 03 indoor plant, 04 guitar, 05 vase, and 06 chair
 
-* Sensitive information: ID cards, credit cards, password notes, medical records, text displayed on computer screens, text displayed on phone screens.
+* Sensitive information: 01 ID cards, 02 credit cards, 03 password notes, 04 medical records, 05 text displayed on computer screens, 06 text displayed on phone screens.
   
 * Hard negatives: To evaluate robustness, the dataset includes **visually similar but non-sensitive negative samples**, such as published academic papers and coupons, which share visual characteristics with sensitive documents.
 
