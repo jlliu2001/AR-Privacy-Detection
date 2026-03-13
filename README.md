@@ -68,25 +68,13 @@ Navigate to `<project_root>`, then run python `scripts/PrivAR_pipeline.py` and `
 ## 📂 Dataset <span id="2">
 The dataset can be downloaded [**here**](Datasets/).
 
-* **Scenes:** The data covers 4 diverse indoor environments:
-    * Office
-    * Living Room
-    * Dorm
-    * Buffet
-* **Virtual Objects:** Includes 6 types of virtual objects used in AR interactions:
-    * Coffee Cup
-    * Whiteboard
-    * Indoor Plant
-    * Guitar
-    * Vase
-    * Chair
-* **Sensitive Information (5 Types):**
-    * ID Cards
-    * Credit Cards
-    * Handwritten Password Notes
-    * Text displayed on Computer Screens
-    * Text displayed on Phone Screens
-* **Negative Samples (Hard Negatives):** To evaluate robustness, the dataset includes **94 visually similar but non-sensitive negative samples**, such as published academic papers and coupons, which share visual characteristics with sensitive documents but should not trigger privacy alerts.
+* Scenes: The data covers 4 diverse indoor environments: office, living room, bedroom, and café
+
+* Virtual objects: Includes 6 types of virtual objects used in AR interactions: coffee cup, whiteboard, indoor plant, guitar, vase, and chair
+
+* Sensitive information: ID cards, credit cards, password notes, medical records, text displayed on computer screens, text displayed on phone screens.
+  
+* Hard negatives: To evaluate robustness, the dataset includes **visually similar but non-sensitive negative samples**, such as published academic papers and coupons, which share visual characteristics with sensitive documents.
 
 
 ## 🔗 Citation
