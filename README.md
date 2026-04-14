@@ -84,7 +84,7 @@ If you find this work useful in your research, please cite our paper:
 ```bibtex
 @inproceedings{PrivAR,
   title={See No Evil: Semantic Context-Aware Privacy Risk Detection for AR},
-  author={Liu, Jialu and Li, Yao and Li, Zhuoheng and Ying, Chen},
+  author={Liu, Jialu and Li, Yao and Li, Zhuoheng and Li, Huining and Ying, Chen},
   booktitle={Proceedings of IEEE ICASSP},
   year={2026}
 }
